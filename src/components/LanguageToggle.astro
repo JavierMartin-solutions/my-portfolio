@@ -1,0 +1,42 @@
+<button
+  id="lang-toggle"
+  aria-label="Change language"
+  class="fixed bottom-6 right-20 z-50
+         rounded-full px-4 py-2 text-sm font-bold
+         bg-zinc-900 text-white
+         dark:bg-white dark:text-zinc-900
+         shadow-lg transition-all hover:scale-105"
+>
+  EN
+</button>
+
+<script is:inline>
+  window.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('lang-toggle');
+    if (!btn) return;
+
+    const getLang = () => {
+      return localStorage.getItem('lang') || 'es';
+    };
+
+    const setLang = (lang) => {
+      localStorage.setItem('lang', lang);
+      window.dispatchEvent(new CustomEvent('language-changed'));
+    };
+
+    const updateLabel = () => {
+      const lang = getLang();
+      btn.textContent = lang === 'es' ? 'EN' : 'ES';
+    };
+
+    updateLabel();
+
+    btn.addEventListener('click', () => {
+      const next = getLang() === 'es' ? 'en' : 'es';
+      setLang(next);
+      updateLabel();
+    });
+
+    window.addEventListener('language-changed', updateLabel);
+  });
+</script>

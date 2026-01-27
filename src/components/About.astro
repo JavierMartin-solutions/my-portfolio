@@ -1,0 +1,19 @@
+---
+import { about } from "../data/about";
+---
+
+<div class="max-w-3xl space-y-4 leading-relaxed text-slate-700 dark:text-slate-300">
+
+  <p data-es={about.introduction.es} data-en={about.introduction.en}>
+    {about.introduction.es}
+  </p>
+
+  {about.paragraphs.map((text) => (
+    <p class="leading-relaxed" 
+       data-es={text.es} 
+       data-en={text.en} 
+       set:html={text.es.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}
+    />
+  ))}
+
+</div>

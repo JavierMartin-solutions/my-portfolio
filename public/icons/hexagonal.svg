@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 256" role="img" aria-label="Hexagonal Architecture with Ports">
+  <defs>
+    <style>
+      .c { stroke: #15a6c8; fill: none; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+      .frame { stroke: #15a6c8; fill: none; stroke-width: 10; }
+      .port { fill: #15a6c8; stroke: none; }
+      .thin { stroke-width: 8; }
+    </style>
+  </defs>
+
+  <!-- Frame -->
+  <rect x="16" y="16" width="288" height="224" rx="20" class="frame"/>
+
+  <!-- Hexagon -->
+  <path class="c" d="
+    M 160 54
+    L 222 90
+    L 222 166
+    L 160 202
+    L 98 166
+    L 98 90
+    Z
+  "/>
+
+  <!-- Inner "domain" circle -->
+  <circle cx="160" cy="128" r="28" class="c thin"/>
+
+  <!-- Ports / adapters -->
+  <!-- Top -->
+  <line x1="160" y1="54" x2="160" y2="82" class="c thin"/>
+  <circle cx="160" cy="44" r="8" class="port"/>
+
+  <!-- Top-right -->
+  <line x1="222" y1="90" x2="204" y2="102" class="c thin"/>
+  <circle cx="238" cy="82" r="8" class="port"/>
+
+  <!-- Bottom-right -->
+  <line x1="222" y1="166" x2="204" y2="154" class="c thin"/>
+  <circle cx="238" cy="174" r="8" class="port"/>
+
+  <!-- Bottom -->
+  <line x1="160" y1="202" x2="160" y2="174" class="c thin"/>
+  <circle cx="160" cy="212" r="8" class="port"/>
+
+  <!-- Bottom-left -->
+  <line x1="98" y1="166" x2="116" y2="154" class="c thin"/>
+  <circle cx="82" cy="174" r="8" class="port"/>
+
+  <!-- Top-left -->
+  <line x1="98" y1="90" x2="116" y2="102" class="c thin"/>
+  <circle cx="82" cy="82" r="8" class="port"/>
+</svg>

@@ -1,0 +1,57 @@
+---
+import { stackProjects } from '../data/stack-projects';
+import { getStackIcon } from '../utils/stackIcons';
+---
+
+<div class="grid gap-8 sm:grid-cols-2">
+  {stackProjects.map(group => (
+    <div class="rounded-xl border border-zinc-200 dark:border-white/10
+                bg-white dark:bg-zinc-900/60 p-6">
+
+        <h4 class="mb-4 text-sm font-semibold uppercase tracking-wide
+                   text-zinc-800 dark:text-zinc-200"
+            data-es={group.title.es}
+            data-en={group.title.en}>
+          {group.title.es}
+        </h4>
+
+        <ul class="flex flex-wrap gap-2 text-xs">
+          {group.stack.map(tech => {
+            const level = tech.level ?? 'professional';
+        
+            return (
+              <li
+                class={`
+                  flex items-center gap-2 rounded-full px-3 py-1
+                  bg-zinc-100 dark:bg-white/10
+                  text-zinc-700 dark:text-zinc-300
+                  ${level === 'learning' ? 'opacity-70 italic' : ''}
+                `}
+                title={level === 'learning' ? 'Aprendizaje activo' : undefined}
+              >
+                <img
+                  src={`/icons/${getStackIcon(tech.key)}.svg`}
+                  alt={tech.label.es}
+                  class={`h-4 w-4 ${level === 'learning' ? 'opacity-70' : ''}`}
+                />
+        
+                <span data-es={tech.label.es} data-en={tech.label.en}>
+                  {tech.label.es}
+                </span>
+                
+                {level === 'learning' && (
+                  <span class="ml-1 rounded-full px-2 py-[1px]
+                               text-[10px] font-medium
+                               bg-cyan-100 text-cyan-700
+                               dark:bg-cyan-500/10 dark:text-cyan-300">
+                    learning
+                  </span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+
+    </div>
+  ))}
+</div>

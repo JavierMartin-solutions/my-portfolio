@@ -1,0 +1,61 @@
+---
+interface Props {
+  title?: string
+  es?: string
+  en?: string
+  centerTitle?: boolean
+  id?: string
+}
+
+const { title, es, en, centerTitle = true, id} = Astro.props
+---
+<section {id} class="py-10 sm:py-14">
+  <div
+    class="
+      relative mx-auto max-w-7xl
+
+      /* Shape */
+      rounded-xl sm:rounded-2xl lg:rounded-3xl
+
+      /* Spacing */
+      px-4 py-10
+      sm:px-8 sm:py-14
+      lg:px-16 lg:py-16
+
+      /* Surface */
+      bg-white
+      border border-zinc-200
+      shadow-[0_20px_60px_-20px_rgba(0,0,0,0.15)]
+
+      /* Dark */
+      dark:bg-zinc-950/90
+      dark:border-white/5
+      dark:shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]
+
+      transition-colors duration-300
+    "
+  >
+    <!-- subtle glow -->
+    <div
+      class="pointer-events-none absolute inset-x-0 top-0 h-24
+             rounded-t-[inherit]
+             bg-gradient-to-b from-gray-500/10 to-transparent"
+    />
+
+    {(es || en || title) && (
+      <h2
+        class={`
+          mb-16 text-3xl sm:text-4xl font-semibold tracking-tight
+          text-zinc-900 dark:text-white
+          ${centerTitle ? 'text-center' : ''}
+        `}
+        data-es={es || title}
+        data-en={en || title}
+      >
+        {es || title}
+      </h2>
+    )}
+
+    <slot />
+  </div>
+</section>

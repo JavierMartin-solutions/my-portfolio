@@ -1,0 +1,50 @@
+---
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon-jm.svg" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>{title}</title>
+
+    <!-- Init dark mode BEFORE render -->
+    <script is:inline>
+      const theme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const isDark = theme === "dark" || (!theme && prefersDark);
+      if (isDark) document.documentElement.classList.add("dark");
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-white dark:bg-slate-950 transition-colors">
+    <Navbar />
+    <main class="max-w-6xl mx-auto px-6">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- Language handling -->
+    <script is:inline>
+      const updateLanguage = () => {
+        const lang = localStorage.getItem("lang") || "es";
+
+        document.querySelectorAll("[data-es]").forEach(el => {
+          const text = el.getAttribute(`data-${lang}`);
+          if (text) el.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        });
+      };
+
+      document.addEventListener("DOMContentLoaded", updateLanguage);
+      window.addEventListener("language-changed", updateLanguage);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+---
+import { timeline, type TimelineItem } from '../data/timeline';
+import { Briefcase, GraduationCap } from 'lucide-react';
+
+const getPeriodLabel = (period: string, type: 'work' | 'education') => {
+  if (type === 'education') {
+    // Obtiene el año
+    const year = period.match(/\d{4}/);
+    return year ? year[0] : '';
+  }
+
+  // Trabajo: mes + año inicial (ej: "Sep 2021", "Mar 2019")
+  const match = period.match(/^[A-Za-z]{3,}\s\d{4}/);
+  return match ? match[0] : '';
+};
+
+
+const getDotClass = (item: TimelineItem, index: number) => {
+  if (item.type === 'education') return 'bg-emerald-500';
+  if (index === 0) return 'bg-amber-500'; // trabajo actual (primero)
+  return 'bg-zinc-400';
+};
+---
+
+<div class="relative max-w-3xl mx-auto">
+
+  <!-- Línea vertical -->
+  <div class="absolute left-5 top-0 h-full w-px bg-zinc-300 dark:bg-white/10"></div>
+
+        <div class="space-y-16">
+            {timeline.map((item, index) => (
+              <div class="relative pl-16">
+              
+        <!-- Ancla del punto (centrado en la línea) -->
+        <div class="absolute left-5 top-2 -translate-x-1/2">
+        
+          <!-- Año / periodo (a la izquierda del punto) -->
+          <span class={`absolute right-full mr-3 -top-1 text-xs hidden sm:block
+                        ${index === 0 ? 'text-amber-500 font-medium' : 'text-zinc-400'}`}
+                data-es={getPeriodLabel(item.period.es, item.type)}
+                data-en={getPeriodLabel(item.period.en, item.type)}>
+            {getPeriodLabel(item.period.es, item.type)}
+          </span>
+        
+          <!-- Punto (exactamente sobre la línea) -->
+          <span class={`block h-3 w-3 rounded-full ${getDotClass(item, index)}`}></span>
+        
+          <!-- Icono (a la derecha del punto) -->
+          <span class="absolute left-full ml-2 top-[-1px]">
+            {item.type === 'education'
+              ? <GraduationCap size={14} className="text-emerald-500" />
+              : <Briefcase size={14} className={index === 0 ? 'text-amber-500' : 'text-zinc-500'} />
+            }
+          </span>
+        
+        </div>
+
+
+        <!-- Card -->
+        <div class="timeline-card rounded-xl border border-zinc-200 dark:border-white/10
+                    bg-white dark:bg-zinc-950 p-6
+                    transition-colors hover:border-cyan-400/40">
+
+          <button type="button" class="w-full text-left">
+            <div class="flex justify-between items-start gap-4">
+              <div>
+                <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                  {item.title}
+                </h3>
+
+                <p class="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+                   data-es={item.subtitle.es}
+                   data-en={item.subtitle.en}>
+                  {item.subtitle.es}
+                </p>
+
+                <p class="mt-1 text-xs text-zinc-500"
+                   data-es={`${item.period.es} · ${item.location.es}`}
+                   data-en={`${item.period.en} · ${item.location.en}`}>
+                  {item.period.es} · {item.location.es}
+                </p>
+              </div>
+
+              <!-- Chevron (SVG para evitar className/lucide typings) -->
+              <svg class="chevron h-4 w-4 text-zinc-400 transition-transform"
+                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </button>
+
+          <!-- Expandible -->
+          <div class="expand mt-4 hidden">
+            <p class="text-sm text-zinc-700 dark:text-zinc-300"
+               data-es={item.description.es}
+               data-en={item.description.en}>
+              {item.description.es}
+            </p>
+
+            <ul class="mt-4 space-y-2">
+              {item.highlights.map(h => (
+                <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+                  <span class="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-500"></span>
+                  <span data-es={h.es} data-en={h.en}>{h.es}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script is:inline>
+  const setup = () => {
+    document.querySelectorAll('.timeline-card').forEach(card => {
+      const button = card.querySelector('button');
+      const content = card.querySelector('.expand');
+      const icon = card.querySelector('.chevron');
+
+      if (!button || !content || !icon) return;
+
+      button.addEventListener('click', () => {
+        content.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+      });
+    });
+  };
+
+  setup();
+  document.addEventListener('astro:after-swap', setup);
+</script>

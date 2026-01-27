@@ -1,0 +1,33 @@
+---
+import StackMatrix from './StackMatrix.astro';
+import StackProjects from './StackProjects.astro';
+import { stackHeaderText } from '../data/stack-matrix';
+---
+
+<div class="space-y-16">
+
+  <!-- Matrix -->
+  <div>
+    <h3 class="mb-6 text-xl font-semibold text-zinc-900 dark:text-white" 
+        data-es={stackHeaderText.top.es}
+        data-en={stackHeaderText.top.en}
+    >
+      Visión general
+    </h3>
+    <StackMatrix />
+  </div>
+
+  <!-- Divider -->
+  <div class="h-px bg-zinc-200 dark:bg-white/10" />
+
+  <!-- Projects -->
+  <div>
+    <h3 class="mb-6 text-xl font-semibold text-zinc-900 dark:text-white" 
+        data-es={stackHeaderText.bottom.es} 
+        data-en={stackHeaderText.bottom.en}>
+      Aplicación en proyectos reales
+    </h3>
+    <StackProjects />
+  </div>
+
+</div>

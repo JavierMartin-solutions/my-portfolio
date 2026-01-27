@@ -1,0 +1,82 @@
+---
+import { hero } from '../data/hero';
+import { socialLinks } from '../data/socialLinks';
+import { contactIcons } from '../utils/contactIcons';
+import { FileText } from 'lucide-react';
+---
+
+<section class="relative py-24 md:py-32">
+  <div class="max-w-4xl">
+
+    <!-- LOGO -->
+    <div class="mb-6 flex items-center gap-3">
+      <img
+        src="/icons/logo-jm.svg"
+        alt="Javier Martín logo"
+        class="h-10 w-auto"
+      />
+      <text x="210" y="78" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="40" font-weight="500">
+        Javier Martín
+      </text>
+    </div>
+
+    <!-- TÍTULO -->
+    <h1 class="text-4xl md:text-5xl xl:text-6xl font-bold tracking-tight text-zinc-900 dark:text-white"
+        data-es={hero.title.es}
+        data-en={hero.title.en}>
+        
+        {hero.title.es}
+    </h1>
+
+    <!-- SUBTÍTULO -->
+    <p class="mt-6 max-w-2xl text-lg md:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed"
+       data-es={hero.subtitle.es}
+       data-en={hero.subtitle.en}>
+      
+       {hero.subtitle.es}
+    </p>
+
+    <!-- ACCIONES -->
+    <div class="mt-10 flex flex-wrap items-center gap-2">
+    
+      <!-- CV (acción principal) -->
+      {socialLinks.filter(l => l.primary).map(link => (
+        <a href={link.href}
+           target="_blank"
+           class="inline-flex items-center gap-2
+                  rounded-xl px-6 py-3
+                  bg-zinc-900 text-white
+                  dark:bg-white dark:text-zinc-900
+                  font-medium
+                  transition-all hover:scale-[1.02]">
+          <FileText size={18} />
+          {link.label}
+        </a>
+      ))}
+    
+      <!-- ICONOS -->
+      <div class="flex items-center gap-2">
+        {socialLinks.filter(l => !l.primary).map(link => (
+          <a
+  href={link.href}
+  target={link.id !== 'email' ? '_blank' : undefined}
+  rel={link.id !== 'email' ? 'noopener noreferrer' : undefined}
+  aria-label={link.label}
+  class="inline-flex items-center justify-center
+         h-12 w-12
+         rounded-xl
+         bg-white dark:bg-transparent
+         border border-zinc-200 dark:border-white/10
+         text-zinc-600 dark:text-zinc-400
+         hover:text-cyan-600 dark:hover:text-cyan-400
+         transition-colors"
+  set:html={contactIcons[link.id]}
+/>
+
+        ))}
+      </div>
+    
+    </div>
+
+  </div>
+</section>

@@ -65,12 +65,18 @@ const links = [
   <!-- MOBILE MENU -->
   <div
     data-mobile-menu
-    class="hidden md:hidden absolute top-full inset-x-0 z-50
-           pointer-events-auto
-           border-t border-zinc-200 dark:border-white/5
-           bg-white dark:bg-zinc-950
-           text-zinc-900 dark:text-zinc-100"
-  >
+    class="md:hidden absolute top-full right-0 z-50
+          w-[min(90vw,20rem)]
+          pointer-events-auto
+          border border-zinc-200 dark:border-white/5
+          rounded-b-xl
+          bg-white dark:bg-zinc-950
+          text-zinc-900 dark:text-zinc-100
+           
+          opacity-0 -translate-y-2
+          pointer-events-none
+          transition-all duration-200 ease-out"
+    >
     <div
       class="mx-auto max-w-6xl px-6 py-4
              flex flex-col gap-4 text-sm font-medium items-end"
@@ -95,23 +101,47 @@ const links = [
       const menu = nav.querySelector('[data-mobile-menu]');
       if (!btn || !menu) return;
 
-      btn.addEventListener('click', () => {
-        const isOpen = !menu.classList.contains('hidden');
-        menu.classList.toggle('hidden', isOpen);
-        btn.setAttribute('aria-expanded', String(!isOpen));
-      });
+      const openMenu = () => {
+        menu.classList.remove(
+          'opacity-0',
+          '-translate-y-2',
+          'pointer-events-none'
+        );
+        btn.setAttribute('aria-expanded', 'true');
+      };
 
-      nav.querySelectorAll('[data-mobile-link]').forEach((link) => {
-        link.addEventListener('click', () => {
-          menu.classList.add('hidden');
-          btn.setAttribute('aria-expanded', 'false');
-        });
-      });
-
-      window.addEventListener('scroll', () => {
-        menu.classList.add('hidden');
+      const closeMenu = () => {
+        menu.classList.add(
+          'opacity-0',
+          '-translate-y-2',
+          'pointer-events-none'
+        );
         btn.setAttribute('aria-expanded', 'false');
-      }, { passive: true });
+      };
+
+      const isOpen = () =>
+        !menu.classList.contains('opacity-0');
+
+      // Toggle al pulsar el hamburger
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isOpen() ? closeMenu() : openMenu();
+      });
+
+      // Cerrar al pulsar un link
+      nav.querySelectorAll('[data-mobile-link]').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Cerrar al hacer scroll
+      window.addEventListener(
+        'scroll',
+        () => isOpen() && closeMenu(),
+        { passive: true }
+      );
+
+      // Cerrar al pulsar fuera
+      document.addEventListener('click', closeMenu);
     });
   });
 </script>

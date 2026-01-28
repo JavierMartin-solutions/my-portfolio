@@ -81,7 +81,7 @@ const getDotClass = (item: TimelineItem, index: number) => {
                 </p>
               </div>
 
-              <!-- Chevron (SVG para evitar className/lucide typings) -->
+              <!-- Chevron -->
               <svg class="chevron h-4 w-4 text-zinc-400 transition-transform"
                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -91,7 +91,7 @@ const getDotClass = (item: TimelineItem, index: number) => {
           </button>
 
           <!-- Expandible -->
-          <div class="expand mt-4 hidden">
+          <div class="expand mt-4 overflow-hidden opacity-0 transition-[height,opacity] duration-500 ease-out" style="height: 0px;">
             <p class="text-sm text-zinc-700 dark:text-zinc-300"
                data-es={item.description.es}
                data-en={item.description.en}>
@@ -123,9 +123,22 @@ const getDotClass = (item: TimelineItem, index: number) => {
 
       if (!button || !content || !icon) return;
 
+      let open = false;
+
       button.addEventListener('click', () => {
-        content.classList.toggle('hidden');
-        icon.classList.toggle('rotate-180');
+        if (!open) {
+          // Abrir
+          content.style.height = content.scrollHeight + 'px';
+          content.classList.remove('opacity-0');
+          icon.classList.add('rotate-180');
+        } else {
+          // Cerrar
+          content.style.height = '0px';
+          content.classList.add('opacity-0');
+          icon.classList.remove('rotate-180');
+        }
+
+        open = !open;
       });
     });
   };
@@ -133,3 +146,4 @@ const getDotClass = (item: TimelineItem, index: number) => {
   setup();
   document.addEventListener('astro:after-swap', setup);
 </script>
+

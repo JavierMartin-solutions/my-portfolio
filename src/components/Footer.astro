@@ -12,32 +12,39 @@ import { FileText } from 'lucide-react';
     <!-- Logo -->
     <div class="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
       <img
-        src="/icons/logo-jm.svg"
-        alt="Javier Martín logo"
-        class="h-7 w-auto"
+        src="/icons/logo-jm-light.svg"
+        alt="JM logo"
+        class="h-8 block dark:hidden"
+        />
+
+      <img
+        src="/icons/logo-jm-dark.svg"
+        alt="JM logo"
+        class="h-8 hidden dark:block"
       />
-      <text x="210" y="78" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="30" font-weight="500">
-        Javier Martín
-      </text>
-      <span>© {new Date().getFullYear()} — Designed & Developed by Javier Martín</span>
+
+      <span font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="30" font-weight="500">
+        © {new Date().getFullYear()} — Designed & Developed by Javier Martín
+      </span>
     </div>
 
     <!-- ICONOS -->
-  <div class="flex items-center gap-2">
+  <div id="footerIcons" class="flex items-center justify-center md:justify-end gap-2">
       {socialLinks.filter(l => !l.primary).map(link => (
           <a
             href={link.href}
             target={link.id !== 'email' ? '_blank' : undefined}
             rel={link.id !== 'email' ? 'noopener noreferrer' : undefined}
             aria-label={link.label}
-            class="inline-flex items-center justify-center
-                   h-12 w-12
-                   rounded-xl
-                   bg-white dark:bg-transparent
-                   border border-zinc-200 dark:border-white/10
-                   text-zinc-600 dark:text-zinc-400
-                   hover:text-cyan-600 dark:hover:text-cyan-400
-                   transition-colors"
+            class="
+              inline-flex items-center justify-center
+              h-12 w-12 rounded-xl
+              bg-white dark:bg-transparent
+              border border-zinc-200 dark:border-white/10
+              text-zinc-600 dark:text-zinc-400
+              hover:text-cyan-600 dark:hover:text-cyan-400
+              transition-transform duration-150 ease-out
+              active:scale-110"
             set:html={contactIcons[link.id]}
           />
       ))}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-label="JM logo light">
+  <style>
+    .s {
+      fill: none;
+      stroke: #111111;
+      stroke-width: 16;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+
+  <path class="s" d="M96 56 V152 q0 32 -32 32 h-16" />
+  <path class="s" d="M144 200 V56" />
+  <path class="s" d="M144 56 L176 120 L208 56 V200" />
+</svg>

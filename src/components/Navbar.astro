@@ -1,4 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import avatar from '../assets/avatar-jm.jpg';
+import lightLogo from '../assets/logo-light-jm.png';
+import darkLogo from '../assets/logo-dark-jm.png';
+import Links from './Links.astro';
+
 const links = [
   { id: 'about', es: 'Sobre mí', en: 'About' },
   { id: 'stack', es: 'Stack', en: 'Tech Stack' },
@@ -7,31 +13,26 @@ const links = [
 ---
 
 <nav data-navbar class="relative z-50 pointer-events-auto">
+  <!-- NAVBAR -->
   <div
     class="mx-auto max-w-6xl px-6
-          backdrop-blur
-          bg-white/70
-          dark:bg-zinc-950
-          md:dark:bg-zinc-950/5
-          border-b border-zinc-200 dark:border-white/5
-          text-zinc-900 dark:text-zinc-100">
+           backdrop-blur
+           bg-white/70
+           dark:bg-zinc-950
+           md:dark:bg-zinc-950/5
+           border-b border-zinc-200 dark:border-white/5
+           text-zinc-900 dark:text-zinc-100"
+  >
     <div class="flex h-14 items-center">
 
       <!-- LOGO -->
       <a href="#top" class="flex items-center gap-2">
         <img src="/icons/logo-jm-light.svg" class="h-8 block dark:hidden" alt="JM logo" />
         <img src="/icons/logo-jm-dark.svg"  class="h-8 hidden dark:block" alt="JM logo" />
-
-        <span
-          class="hidden sm:block text-lg font-medium leading-none"
-          style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
-        >
-          Javier Martín
-        </span>
       </a>
 
       <!-- LINKS DESKTOP -->
-      <div class="ml-auto hidden md:flex items-center gap-6 text-sm font-medium">
+      <div class="ml-10 hidden md:flex items-center gap-6 text-sm font-medium">
         {links.map(link => (
           <a
             href={`#${link.id}`}
@@ -42,106 +43,164 @@ const links = [
         ))}
       </div>
 
-      <!-- HAMBURGER -->
-      <div class="ml-auto flex items-center gap-3 md:ml-4">
-        <slot />
+      <!-- AVATAR (DESKTOP) -->
+      <div class="ml-auto hidden md:flex items-center">
+        <Image
+          src={avatar}
+          width={80}
+          height={80}
+          class="h-8 w-8 rounded-full object-cover"
+          alt="Javier Martín"
+        />
+      </div>
+
+      <!-- HAMBURGER (MOBILE) -->
+      <button
+        data-menu-btn
+        type="button"
+        class="ml-auto md:hidden p-2
+               text-zinc-700 dark:text-zinc-200
+               hover:text-cyan-600 dark:hover:text-cyan-400
+               transition-colors"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+    </div>
+  </div>
+
+  <!-- OVERLAY -->
+  <div
+    id="mobile-overlay"
+    class="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm
+           opacity-0 pointer-events-none
+           transition-opacity duration-200"
+  ></div>
+
+  <!-- MOBILE DRAWER -->
+  <aside
+    id="mobile-drawer"
+    class="fixed top-4 right-4 z-50 w-[90vw] max-w-sm
+           rounded-2xl border border-zinc-200 dark:border-white/10
+           bg-white dark:bg-zinc-950
+           shadow-xl
+           opacity-0 translate-y-2 scale-95
+           pointer-events-none
+           transition-all duration-200 ease-out"
+  >
+    <div class="p-4 flex flex-col gap-6">
+
+      <!-- HEADER -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <Image
+            src={lightLogo}
+            width={80}
+            height={80}
+            class="h-10 w-10 rounded-full object-cover"
+            alt="Javier Martín"
+          />
+        </div>
+        <div class="flex items-center gap-3">
+          <Image
+            src={darkLogo}
+            width={80}
+            height={80}
+            class="h-10 w-10 rounded-full object-cover"
+            alt="Javier Martín"
+          />
+        </div>
 
         <button
-          data-menu-btn
-          type="button"
-          class="md:hidden p-2
-                 text-zinc-700 dark:text-zinc-200
-                 hover:text-cyan-600 dark:hover:text-cyan-400
-                 transition-colors"
-          aria-label="Open menu"
-          aria-expanded="false"
+          id="mobile-close"
+          class="h-9 w-9 rounded-lg border border-zinc-300 dark:border-white/20
+                 text-zinc-500 hover:text-zinc-900
+                 dark:text-zinc-400 dark:hover:text-white
+                 transition"
+          aria-label="Close menu"
         >
-          ☰
+          ✕
         </button>
       </div>
-    </div>
-  </div>
 
-  <!-- MOBILE MENU -->
-  <div
-    data-mobile-menu
-    class="md:hidden absolute top-full right-0 z-50
-          w-[min(90vw,20rem)]
-          pointer-events-auto
-          border border-zinc-200 dark:border-white/5
-          rounded-b-xl
-          bg-white dark:bg-zinc-950
-          text-zinc-900 dark:text-zinc-100
-           
-          opacity-0 -translate-y-2
-          pointer-events-none
-          transition-all duration-200 ease-out"
-    >
-    <div
-      class="mx-auto max-w-6xl px-6 py-4
-             flex flex-col gap-4 text-sm font-medium items-end"
-    >
-      {links.map(link => (
-        <a
-          href={`#${link.id}`}
-          class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
-          data-mobile-link
-        >
-          {link.es}
-        </a>
-      ))}
+      <!-- LINKS -->
+      <nav class="flex flex-col gap-3 text-base font-medium text-zinc-500 dark:text-zinc-400">
+        {links.map(link => (
+          <a
+            href={`#${link.id}`}
+            class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+            data-mobile-link
+          >
+            {link.es}
+          </a>
+        ))}
+      </nav>
+
+      <hr class="border-zinc-200 dark:border-white/10" />
+
+      <!-- FOOTER -->
+      <div class="flex flex-col gap-6">
+        
+        <div class="flex items-center gap-3">
+          <Image
+            src={avatar}
+            width={80}
+            height={80}
+            class="h-10 w-10 rounded-full object-cover opacity-80"
+            alt="Javier Martín"
+          />
+        
+          <div class="text-sm">
+            <div class="font-medium text-zinc-900 dark:text-white">
+              Javier Martín
+            </div>
+            <div class="text-zinc-500 dark:text-zinc-400">
+              Backend Developer
+            </div>
+          </div>
+        </div>
+      
+        <div class="flex items-center md:justify-end gap-2">
+          <Links />
+        </div>
+      
+      </div>
+
+
     </div>
-  </div>
+  </aside>
 </nav>
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[data-navbar]').forEach((nav) => {
-      const btn  = nav.querySelector('[data-menu-btn]');
-      const menu = nav.querySelector('[data-mobile-menu]');
-      if (!btn || !menu) return;
+    const btn     = document.querySelector('[data-menu-btn]');
+    const drawer  = document.getElementById('mobile-drawer');
+    const overlay = document.getElementById('mobile-overlay');
+    const close   = document.getElementById('mobile-close');
 
-      const openMenu = () => {
-        menu.classList.remove(
-          'opacity-0',
-          '-translate-y-2',
-          'pointer-events-none'
-        );
-        btn.setAttribute('aria-expanded', 'true');
-      };
+    if (!btn || !drawer || !overlay || !close) return;
 
-      const closeMenu = () => {
-        menu.classList.add(
-          'opacity-0',
-          '-translate-y-2',
-          'pointer-events-none'
-        );
-        btn.setAttribute('aria-expanded', 'false');
-      };
+    const openMenu = () => {
+      drawer.classList.remove('opacity-0', 'translate-y-2', 'scale-95', 'pointer-events-none');
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      btn.setAttribute('aria-expanded', 'true');
+    };
 
-      const isOpen = () =>
-        !menu.classList.contains('opacity-0');
+    const closeMenu = () => {
+      drawer.classList.add('opacity-0', 'translate-y-2', 'scale-95', 'pointer-events-none');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      btn.setAttribute('aria-expanded', 'false');
+    };
 
-      // Toggle al pulsar el hamburger
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        isOpen() ? closeMenu() : openMenu();
-      });
+    btn.addEventListener('click', openMenu);
+    close.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
 
-      // Cerrar al pulsar un link
-      nav.querySelectorAll('[data-mobile-link]').forEach((link) => {
-        link.addEventListener('click', closeMenu);
-      });
+    document.querySelectorAll('[data-mobile-link]').forEach(link =>
+      link.addEventListener('click', closeMenu)
+    );
 
-      // Cerrar al hacer scroll
-      window.addEventListener(
-        'scroll',
-        () => isOpen() && closeMenu(),
-        { passive: true }
-      );
-
-      // Cerrar al pulsar fuera
-      document.addEventListener('click', closeMenu);
-    });
+    window.addEventListener('scroll', closeMenu, { passive: true });
   });
 </script>

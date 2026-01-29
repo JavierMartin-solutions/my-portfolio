@@ -1,0 +1,23 @@
+---
+import { socialLinks } from '../data/socialLinks';
+import { contactIcons } from '../utils/contactIcons';
+---
+
+{socialLinks.filter(l => !l.primary).map(link => (
+    <a
+      href={link.href}
+      target={link.id !== 'email' ? '_blank' : undefined}
+      rel={link.id !== 'email' ? 'noopener noreferrer' : undefined}
+      aria-label={link.label}
+      class="
+        inline-flex items-center justify-center
+        h-12 w-12 rounded-xl
+        bg-white dark:bg-transparent
+        border border-zinc-200 dark:border-white/10
+        text-zinc-600 dark:text-zinc-400
+        hover:text-cyan-600 dark:hover:text-cyan-400
+        transition-transform duration-150 ease-out
+        active:scale-110"
+      set:html={contactIcons[link.id]}
+    />
+))}

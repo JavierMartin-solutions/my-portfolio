@@ -5,13 +5,13 @@ export const hero = {
   },
   subtitle: {
     es: `
-      Especializado en Java, Grails y arquitectura de sistemas.
-      Experiencia liderando plataformas críticas, integraciones financieras
+      Especializado en Java, Grails y diseño y evolución de arquitecturas backend.
+      Experiencia en plataformas críticas, integraciones financieras
       y soluciones de alta fiabilidad.
     `,
     en: `
-      Specialized in Java, Grails and system architecture.
-      Experienced in leading mission-critical platforms, financial integrations
+      Specialized in Java, Grails and design and evolution of backend architectures.
+      Experienced in mission-critical platforms, financial integrations
       and high-reliability solutions.
     `
   },

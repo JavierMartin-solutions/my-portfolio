@@ -4,12 +4,7 @@ import avatar from '../assets/avatar-jm.jpg';
 import lightLogo from '../assets/logo-light-jm.png';
 import darkLogo from '../assets/logo-dark-jm.png';
 import Links from './Links.astro';
-
-const links = [
-  { id: 'about', es: 'Sobre mí', en: 'About' },
-  { id: 'stack', es: 'Stack', en: 'Tech Stack' },
-  { id: 'timeline', es: 'Trayectoria', en: 'Timeline' }
-];
+import { navbarText } from '../data/navbar';
 ---
 
 <nav data-navbar class="relative z-50 pointer-events-auto">
@@ -33,12 +28,14 @@ const links = [
 
       <!-- LINKS DESKTOP -->
       <div class="ml-10 hidden md:flex items-center gap-6 text-sm font-medium">
-        {links.map(link => (
+        {navbarText.map(navbarText => (
           <a
-            href={`#${link.id}`}
+            href={`#${navbarText.id}`}
             class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+            data-es={navbarText.es}
+            data-en={navbarText.en}
           >
-            {link.es}
+            {navbarText.es}
           </a>
         ))}
       </div>
@@ -94,22 +91,23 @@ const links = [
       <!-- HEADER -->
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
+          <a href="#top" aria-label="Go to top">
           <Image
             src={lightLogo}
             width={80}
             height={80}
-            class="h-10 w-10 rounded-full object-cover"
+            class="h-10 w-10 rounded-full object-cover block dark:hidden"
             alt="Javier Martín"
           />
-        </div>
-        <div class="flex items-center gap-3">
+          
           <Image
             src={darkLogo}
             width={80}
             height={80}
-            class="h-10 w-10 rounded-full object-cover"
+            class="h-10 w-10 rounded-full object-cover hidden dark:block"
             alt="Javier Martín"
           />
+          </a>
         </div>
 
         <button
@@ -126,13 +124,15 @@ const links = [
 
       <!-- LINKS -->
       <nav class="flex flex-col gap-3 text-base font-medium text-zinc-500 dark:text-zinc-400">
-        {links.map(link => (
+        {navbarText.map(navbarText => (
           <a
-            href={`#${link.id}`}
+            href={`#${navbarText.id}`}
             class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
             data-mobile-link
+            data-es={navbarText.es}
+            data-en={navbarText.en}
           >
-            {link.es}
+            {navbarText.es}
           </a>
         ))}
       </nav>
@@ -141,7 +141,7 @@ const links = [
 
       <!-- FOOTER -->
       <div class="flex flex-col gap-6">
-        
+
         <div class="flex items-center gap-3">
           <Image
             src={avatar}
@@ -156,7 +156,7 @@ const links = [
               Javier Martín
             </div>
             <div class="text-zinc-500 dark:text-zinc-400">
-              Backend Developer
+              Full Stack Developer
             </div>
           </div>
         </div>
@@ -166,7 +166,6 @@ const links = [
         </div>
       
       </div>
-
 
     </div>
   </aside>

@@ -10,8 +10,8 @@ export const about = {
       en: 'Throughout my career, I have worked primarily with **Groovy**, **Java** and the **Grails** ecosystem, contributing to **large-scale projects** related to **governmental services**, **payment gateways** and **financial systems**, where **reliability**, **security** and **maintainability** are essential.'
     },
     {
-      es: 'En los últimos años he asumido **responsabilidades de liderazgo técnico**, diseñando e implementando **soluciones end-to-end**, integraciones con sistemas corporativos y la evolución de arquitecturas en **entornos productivos complejos**.',
-      en: 'In recent years, I have taken on **technical leadership responsibilities**, designing and implementing **end-to-end solutions**, corporate system integrations, and driving architectural evolution in **complex production environments**.'
+      es: 'En los últimos años he asumido **responsabilidades de liderazgo técnico**, diseñando e implementando **soluciones end-to-end**, integraciones con sistemas corporativos y la evolución de arquitecturas backend en **entornos productivos complejos**.',
+      en: 'In recent years, I have taken on **technical leadership responsibilities**, designing and implementing **end-to-end solutions**, corporate system integrations, and driving the evolution of backend architectures in **complex production environments**.'
     },
     {
       es: 'Actualmente estoy profundizando en **arquitecturas modernas**, como la **arquitectura hexagonal** y enfoques basados en **microservicios**, con el objetivo de escalar soluciones y mejorar el desacoplamiento, la mantenibilidad y la **calidad del software**.',

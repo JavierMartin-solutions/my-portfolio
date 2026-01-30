@@ -1,7 +1,7 @@
 export const hero = {
   title: {
-    es: 'Senior Backend Developer',
-    en: 'Senior Backend Developer'
+    es: 'Senior Full Stack Developer',
+    en: 'Senior Full Stack Developer'
   },
   subtitle: {
     es: `

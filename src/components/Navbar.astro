@@ -3,8 +3,8 @@ import { Image } from 'astro:assets';
 import avatar from '../assets/avatar-jm.jpg';
 import lightLogo from '../assets/logo-light-jm.png';
 import darkLogo from '../assets/logo-dark-jm.png';
-import Links from './Links.astro';
-import { navbarText } from '../data/navbar';
+import SocialLinks from './SocialLinks.astro';
+import NavbarLinks from './NavbarLinks.astro';
 ---
 
 <nav data-navbar class="relative z-50 pointer-events-auto">
@@ -28,16 +28,7 @@ import { navbarText } from '../data/navbar';
 
       <!-- LINKS DESKTOP -->
       <div class="ml-10 hidden md:flex items-center gap-6 text-sm font-medium">
-        {navbarText.map(navbarText => (
-          <a
-            href={`#${navbarText.id}`}
-            class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
-            data-es={navbarText.es}
-            data-en={navbarText.en}
-          >
-            {navbarText.es}
-          </a>
-        ))}
+        <NavbarLinks />
       </div>
 
       <!-- AVATAR (DESKTOP) -->
@@ -124,17 +115,7 @@ import { navbarText } from '../data/navbar';
 
       <!-- LINKS -->
       <nav class="flex flex-col gap-3 text-base font-medium text-zinc-500 dark:text-zinc-400">
-        {navbarText.map(navbarText => (
-          <a
-            href={`#${navbarText.id}`}
-            class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
-            data-mobile-link
-            data-es={navbarText.es}
-            data-en={navbarText.en}
-          >
-            {navbarText.es}
-          </a>
-        ))}
+        <NavbarLinks />
       </nav>
 
       <hr class="border-zinc-200 dark:border-white/10" />
@@ -162,7 +143,7 @@ import { navbarText } from '../data/navbar';
         </div>
       
         <div class="flex items-center md:justify-end gap-2">
-          <Links />
+          <SocialLinks />
         </div>
       
       </div>

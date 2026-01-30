@@ -1,7 +1,7 @@
 export const about = {
   introduction: {
-    es: 'Soy desarrollador **full-stack** con más de **8 años de experiencia** en el diseño, desarrollo y mantenimiento de aplicaciones empresariales y **plataformas críticas**.',
-    en: 'I am a **full-stack developer** with over **8 years of experience** in the design, development and maintenance of enterprise applications and **mission-critical platforms**.'
+    es: 'Soy **desarrollador full stack** con más de **8 años de experiencia** en el diseño, desarrollo y mantenimiento de aplicaciones empresariales y **plataformas críticas**.',
+    en: 'I am a **full stack developer** with over **8 years of experience** in the design, development and maintenance of enterprise applications and **mission-critical platforms**.'
   },
 
   paragraphs: [

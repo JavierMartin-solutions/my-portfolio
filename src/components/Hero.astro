@@ -1,8 +1,7 @@
 ---
 import { hero } from '../data/hero';
-import { socialLinks } from '../data/socialLinks';
-import { contactIcons } from '../utils/contactIcons';
-import { FileText } from 'lucide-react';
+import SocialLinks from './SocialLinks.astro';
+import CV from '../components/CvSelector.astro';
 ---
 
 <section class="relative pt-24 pb-14 md:pt-32 md:pb-26">
@@ -53,39 +52,11 @@ import { FileText } from 'lucide-react';
     <div class="mt-10 flex flex-wrap items-center gap-2">
     
       <!-- CV (acción principal) -->
-      {socialLinks.filter(l => l.primary).map(link => (
-        <a href={link.href}
-           target="_blank"
-           class="inline-flex items-center gap-2
-                  rounded-xl px-6 py-3
-                  bg-zinc-900 text-white
-                  dark:bg-white dark:text-zinc-900
-                  font-medium
-                  transition-all hover:scale-[1.02]">
-          <FileText size={18} />
-          {link.label}
-        </a>
-      ))}
+      <CV />
     
       <!-- ICONOS -->
       <div class="flex items-center gap-2">
-        {socialLinks.filter(l => !l.primary).map(link => (
-          <a
-            href={link.href}
-            target={link.id !== 'email' ? '_blank' : undefined}
-            rel={link.id !== 'email' ? 'noopener noreferrer' : undefined}
-            aria-label={link.label}
-            class="inline-flex items-center justify-center
-                   h-12 w-12
-                   rounded-xl
-                   bg-white dark:bg-transparent
-                   border border-zinc-200 dark:border-white/10
-                   text-zinc-600 dark:text-zinc-400
-                   hover:text-cyan-600 dark:hover:text-cyan-400
-                   transition-colors"
-            set:html={contactIcons[link.id]}
-          />
-        ))}
+        <SocialLinks />
       </div>
     
     </div>

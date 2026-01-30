@@ -1,0 +1,102 @@
+---
+import { FileText } from 'lucide-react';
+import { socialLinks } from '../data/social-links';
+
+const cvLink = socialLinks.find(element=> element.primary);
+---
+
+<div class="relative inline-block" data-cv-selector>
+  <!-- BOTÓN PRINCIPAL -->
+  <button
+    type="button"
+    data-cv-btn
+    class="inline-flex items-center gap-2
+           rounded-xl px-6 py-3
+           bg-zinc-900 text-white
+           dark:bg-white dark:text-zinc-900
+           font-medium
+           transition-all hover:scale-[1.02]"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <FileText size={18} />
+    {cvLink?.label}
+  </button>
+
+  <!-- POPOVER -->
+  <div
+    data-cv-menu
+    class="absolute left-0 mt-2 w-44
+           rounded-xl border border-zinc-200 dark:border-white/10
+           bg-white dark:bg-zinc-950
+           shadow-lg
+           opacity-0 scale-95 translate-y-1
+           pointer-events-none
+           transition-all duration-150 ease-out
+           z-50"
+  >
+    <a
+      href="/cv/CV_Javier_Martin_2026_ES.pdf"
+      target="_blank"
+      class="block px-4 py-3 text-sm
+             text-zinc-700 dark:text-zinc-200
+             hover:bg-zinc-100 dark:hover:bg-white/5
+             rounded-t-xl"
+    >
+      🇪🇸 Español
+    </a>
+
+    <a
+      href="/cv/CV_Javier_Martin_2026_EN.pdf"
+      target="_blank"
+      class="block px-4 py-3 text-sm
+             text-zinc-700 dark:text-zinc-200
+             hover:bg-zinc-100 dark:hover:bg-white/5
+             rounded-b-xl"
+    >
+      🇬🇧 English
+    </a>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-cv-selector]').forEach((root) => {
+      const btn  = root.querySelector('[data-cv-btn]');
+      const menu = root.querySelector('[data-cv-menu]');
+
+      if (!btn || !menu) return;
+
+      const open = () => {
+        menu.classList.remove(
+          'opacity-0',
+          'scale-95',
+          'translate-y-1',
+          'pointer-events-none'
+        );
+        btn.setAttribute('aria-expanded', 'true');
+      };
+
+      const close = () => {
+        menu.classList.add(
+          'opacity-0',
+          'scale-95',
+          'translate-y-1',
+          'pointer-events-none'
+        );
+        btn.setAttribute('aria-expanded', 'false');
+      };
+
+      const isOpen = () =>
+        !menu.classList.contains('opacity-0');
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isOpen() ? close() : open();
+      });
+
+      document.addEventListener('click', close);
+      window.addEventListener('scroll', close, { passive: true });
+    });
+  });
+</script>

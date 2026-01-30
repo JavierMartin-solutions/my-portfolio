@@ -29,11 +29,9 @@ import { getStackIcon } from '../utils/stackIcons';
                 `}
                 title={level === 'learning' ? 'Aprendizaje activo' : undefined}
               >
-                <img
-                  src={`/icons/${getStackIcon(tech.key)}.svg`}
-                  alt={tech.label.es}
-                  class={`h-4 w-4 ${level === 'learning' ? 'opacity-70' : ''}`}
-                />
+                <span class="h-4 w-4 bg-zinc-700 dark:bg-zinc-300 inline-block mask-icon"
+                      style={`--icon: url('/icons/${getStackIcon(tech.key)}.svg')`}
+                ></span>             
         
                 <span data-es={tech.label.es} data-en={tech.label.en}>
                   {tech.label.es}
